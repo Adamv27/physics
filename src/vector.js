@@ -1,16 +1,26 @@
-class Vector extends Array {
+class Vector2d {
+  constructor(x, y) {
+    this.x = x;
+    this.y = y;
+  }
+
   add(other) {
-    return this.map((element, index) => element + other[index])
+    this.x += other.x;
+    this.y += other.y;
   }
 
   sub(other) {
-    return this.map((element, index) => element - other[index])
+    this.x -= other.x; 
+    this.y -= other.y;
   }
 
   dot(other) {
-    return this.map((element, index) => element * other[index])
-      .reduce((sum, currentVal) => {
-        return sum + currentVal
-      }, 0)
+    return this.x * other.x + this.y * other.y;
+  }
+
+  magnitude() {
+    return Math.sqrt(this.reduce((sum, currentVal) => {
+      return sum + currentVal ** 2
+    }, 0))
   }
 }
