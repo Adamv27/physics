@@ -1,75 +1,67 @@
+import { Vector2d } from "./vector.js";
+
 const canvas = document.getElementById("particle-collision");
 
 export class Particle {
   static radius = 10;
   static diameter = Particle.radius * 2;
-  constructor(pos, vel, color) {
+  constructor(pos, vel, color, radius) {
     [this.x, this.y] = pos;
-    [this.dx, this.dy] = vel;
+    this.vel = vel;
     this.mass = randInt(1,3);
     this.color = color;
+    this.radius = radius
+    this.diameter = this.radius * 2
+    this.isColliding = false;
   }
   
-  move() {
-    const new_x = this.x + this.dx;
-    const new_y = this.y + this.dy;
-    
-    if (new_x > 0 && new_x < canvas.width) {
-      this.x = new_x; 
-    } else {
-      this.dx = -this.dx;  
-    } 
+  update(secondsPassed) {
+    this.x += this.vel.x * secondsPassed;
+    this.y += this.vel.y * secondsPassed;
 
-    if (new_y > 0 && new_y < canvas.height) {
-     this.y = new_y;
-    } else {
-      this.dy = -this.dy;
+    if (this.x <= 0) {
+      this.x = 0;
+      this.vel.x = -this.vel.x;
+    } else if (this.x >= canvas.width - this.diameter) {
+      this.x = canvas.width - this.diameter;
+      this.vel.x = -this.vel.x;
+    }
+
+    if (this.y < 0) {
+      this.y = 0;
+      this.vel.y = -this.vel.y
+    } else if (this.y >= canvas.height - this.diameter) {
+      this.y = canvas.height - this.diameter;
+      this.vel.y = -this.vel.y
     }
   }
 
   draw(ctx) {
-    ctx.fillStyle = this.color;
+    ctx.fillStyle = this.color; 
     ctx.beginPath();
-    ctx.arc(this.x, this.y, Particle.radius, 0, 2 * Math.PI, false);
+    ctx.arc(this.x + this.radius, this.y + this.radius, this.radius, 0, 2 * Math.PI, false);
     ctx.fill();
   }
 
-  is_colliding(particle) {
-    let x1 = this.x - Particle.radius;
-    let y1 = this.y - Particle.radius;
-    let x2 = particle.x - Particle.radius;
-    let y2 = particle.y - Particle.radius;
-    if (x1 + Particle.diameter >= x2 &&
-        x1 <= x2 + Particle.diameter &&
-        y1 + Particle.diameter >= y2 &&
-        y1 <= y2 + Particle.diameter) {
-      return true;
-    }
-    return false;
+  overlaps(particle) {
+    const distX = this.x - particle.x;
+    const distY = this.y - particle.y;
+    const distance = Math.sqrt((distX * distX) + (distY * distY));
+    
+    return distance < this.radius + particle.radius;
   }
 
   collide(particle) {
-    const m1 = this.mass;
-    const m2 = particle.mass;
+    const vCollision = new Vector2d(particle.x - this.x, particle.y - this.y)
+    const vCollisionNorm = vCollision.norm();
+    const vRelativeVelocity = this.vel.sub(particle.vel)
+    const speed = vRelativeVelocity.dot(vCollisionNorm);
     
-    const v1i = Math.sqrt(this.dx ** 2 + this.dy ** 2);
-    const v2i = Math.sqrt(particle.dx ** 2 + particle.dy ** 2)
-    
-
-    const a = (2 * m1) / (m1 + m2);
-    
-    const velDiff = v1i - v2i
-    
-    const dotProd = (velDiff * (this.x - particle.x)) + (velDiff * (this.y - particle.y))
-    const euclideanNorm = Math.sqrt(this.x ** 2 + this.y ** 2) ** 2;
-    const v1f = v1i - a * (dotProd / euclideanNorm);
-      
-
-    this.dx = v1fx;
-    this.dy = v1fy;
-
-    particle.dx = v2fx;
-    particle.dy = v2fy; 
+    if (speed < 0) return;
+    const changeSpeed = vCollisionNorm.multiply(speed)
+    this.vel = this.vel.sub(changeSpeed)
+    particle.vel = particle.vel.add(changeSpeed)
+    return;
   }
 }
 
@@ -91,15 +83,16 @@ export const createParticle = () => {
   const y = randInt(min_y, max_y);
 
   let negate = randInt(1, 3);
-  let dx = randInt(1, 1);
+  let dx = randInt(20, 40);
   dx = negate == 1 ? -dx : dx;
 
   negate = randInt(1, 3)
-  let dy = randInt(1, 1);
+  let dy = randInt(20, 40);
   dy = negate == 1 ? -dy : dy;
-  
+  const vel = new Vector2d(dx, dy);
 
   const color = '#' + genRanHex(6);
+  const radius = 10
 
-  return new Particle([x,y], [dx, dy], color);
+  return new Particle([x,y], vel, "#0000FF", radius);
 }
