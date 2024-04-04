@@ -12,7 +12,6 @@ export class Particle {
     this.color = color;
     this.radius = radius
     this.diameter = this.radius * 2
-    this.isColliding = false;
   }
   
   update(secondsPassed) {
@@ -94,5 +93,5 @@ export const createParticle = () => {
   const color = '#' + genRanHex(6);
   const radius = 10
 
-  return new Particle([x,y], vel, "#0000FF", radius);
+  return new Particle([x,y], vel, '#4361EE', radius);
 }

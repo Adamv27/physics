@@ -13,7 +13,7 @@ class Engine {
     this.ctx = this.canvas.getContext("2d")
     
     this.particles = []
-    for (let i = 0; i < 50; i++) {
+    for (let i = 0; i < 100; i++) {
       this.particles.push(createParticle())
     }
 
@@ -27,7 +27,6 @@ class Engine {
   }
 
   checkCollisions() {
-    this.particles.forEach(particle => particle.isColliding = false)
     let p1;
     let p2;
     for (let i = 0; i < this.particles.length; i++) {
@@ -36,9 +35,6 @@ class Engine {
         p2 = this.particles[j]; 
         
         if (p1.overlaps(p2)) {
-          p1.isColliding = true;
-          p2.isColliding = true;
-
           p1.collide(p2);
         }
       }
