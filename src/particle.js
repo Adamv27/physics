@@ -82,11 +82,11 @@ export const createParticle = () => {
   const y = randInt(min_y, max_y);
 
   let negate = randInt(1, 3);
-  let dx = randInt(20, 40);
+  let dx = randInt(20, 50);
   dx = negate == 1 ? -dx : dx;
 
   negate = randInt(1, 3)
-  let dy = randInt(20, 40);
+  let dy = randInt(20, 50);
   dy = negate == 1 ? -dy : dy;
   const vel = new Vector2d(dx, dy);
 

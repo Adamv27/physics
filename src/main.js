@@ -13,7 +13,7 @@ class Engine {
     this.ctx = this.canvas.getContext("2d")
     
     this.particles = []
-    for (let i = 0; i < 100; i++) {
+    for (let i = 0; i < 200; i++) {
       this.particles.push(createParticle())
     }
 
