@@ -1,4 +1,5 @@
 import { Vector2d } from "./vector.js";
+import { randInt } from "./util.js";
 
 const canvas = document.getElementById("particle-collision");
 
@@ -64,13 +65,6 @@ export class Particle {
   }
 }
 
-const randInt = (min, max) => {
-    return Math.floor(Math.random() * (max - min) + min);
-}
-
-const genRanHex = size => [...Array(size)].map(() => Math.floor(Math.random() * 16).toString(16)).join('');
-
-
 export const createParticle = () => {
   const margin = Particle.radius * 2;
   const min_x = 0 + margin;
@@ -90,7 +84,6 @@ export const createParticle = () => {
   dy = negate == 1 ? -dy : dy;
   const vel = new Vector2d(dx, dy);
 
-  const color = '#' + genRanHex(6);
   const radius = 10
 
   return new Particle([x,y], vel, '#4361EE', radius);

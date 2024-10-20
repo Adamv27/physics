@@ -1,19 +1,14 @@
 import { createParticle } from "./particle.js";
 
-const canvas = document.getElementById("particle-collision");
-canvas.width = 200
-canvas.height = 200
-const ctx = canvas.getContext("2d");
-
 class Engine {
-  constructor() {
-    this.canvas = document.getElementById("particle-collision")
+  constructor(canvasId) {
+    this.canvas = document.getElementById(canvasId)
     this.canvas.width = 500
     this.canvas.height = 500
     this.ctx = this.canvas.getContext("2d")
     
     this.particles = []
-    for (let i = 0; i < 200; i++) {
+    for (let i = 0; i < 50; i++) {
       this.particles.push(createParticle())
     }
 
@@ -54,7 +49,7 @@ class Engine {
 
 function engine() {
   let last_render = performance.now(); 
-  const particleEngine = new Engine();
+  const particleEngine = new Engine("particle-collisons");
 
   function frame(timestamp) {
     const seconds_passed = (timestamp - last_render) / 1000;

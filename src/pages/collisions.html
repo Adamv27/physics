@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Collisions</title>
+    <link rel="stylesheet" href="../styles/collisions.css" type="text/css" charset="utf-8">
+  </head>
+  <body>
+    
+    <canvas id="particle-collision"></canvas> 
+    <div id="text-box">
+      <p>Find vector for the collision</p>
+      <p><span class="math display">\[\vec{C} = p_{2x} - p_{1x},\; p_{2y} - p_{1y}\]</span></p>
+      <p>The distance is the magnitude of that vector</p>
+      <p><span class="math display">\[d = \sqrt{C_{x}\,^2 + C_{y}\,^2}\]</span></p>
+      <p>Use the distance to normalize the collison vector</p>
+      <p><span class="math display">\[\hat{C} = \frac{C_{x}}{d},\; \frac{C_{y}}{d}\]</span></p>
+      <p>This normalized vector is the direction of of the collision</p>
+      <p>Find the relative velocity of p1 to p2</p>
+      <p><span class="math display">\[\vec{V} = v_{1x} - v_{2x},\; v_{1y} - v_{2y}\]</span></p>
+      <p>The speed of the collision is the dot product of the relative velocity and collision direction vectors</p> 
+      <p><span class="math display">\[ speed = \vec{V} \cdot \vec{C} \]</span></p>
+      <p>If this speed is negative then objects are moving away from each other. This means their velocity vectors don't need to be updated</p>
+      <p>If speed is positive then the new velocitys are updated as so</p>
+      <p><span class="math display">\[ \vec{V_{f}}= \vec{V} \cdot speed \]</span></p>
+      <p><span class="math display">\[ \vec{v1} = \vec{v1} - \vec{V_{f}}\]</span></p>
+      <p><span class="math display">\[ \vec{v2} = \vec{v2} + \vec{V_{f}}\]</span></p>
+      <a href="https://spicyyoghurt.com/tutorials/html5-javascript-game-development/collision-detection-physics">Reference</a>
+  
+    </div>
+    
+    <canvas id="body-orbit"></canvas> 
+  
+    <script type="module" src="../collisions.js"> </script>
+    <script src="../engine.js" type="module"></script>
+    <script type="text/javascript" async="" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+  </body>
+</html>

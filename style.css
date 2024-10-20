@@ -1,7 +1,29 @@
-body {
-  background-color: #535353;
-}
-
-p {
+:root {
+  font-family: Poppins;
   color: white;
 }
+
+
+.card-link {
+  margin: 1em;
+  border-radius: 16px;
+  display: flex;
+  padding: 1em;
+  background-color: #808080;
+}
+
+
+.card-link img {
+  width: 8em;
+  height: 8em;
+  border-radius: 8px;
+}
+
+
+body {
+  background-color: #535353;
+  display: flex;
+  flex-direction: column; 
+  align-items: center;
+}
+

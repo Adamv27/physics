@@ -1,0 +1,14 @@
+body {
+  display: flex;
+  flex-direction: column;
+
+  justify-content: center;
+  align-items: center;
+
+  background-color: #535353;
+  color: white;
+}
+
+#text-box {
+  max-width: 500px;
+}
