@@ -7,11 +7,12 @@
     <title>Orbits</title>
   </head>
   <body>
-    <canvas id="orbits"></canvas>
+    <div>
+      <canvas id="orbits"></canvas>
+      <p>Orbital Radius</p> 
+      <input type="range" id="orbital-radius" min="70" max="300" step="10" value="141"/>
+    </div>
     
-    <p>Orbital Radius</p>
-    <input type="range" id="orbital-radius" min="70" max="300" step="10" value="141"/>
-
     <script src="../scripts/orbits/orbits.js" type="module"></script> 
     <script src="../scripts/engine.js" type="module"></script>
   </body>
