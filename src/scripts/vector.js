@@ -13,6 +13,7 @@ export class Vector2d {
     if (v instanceof Vector2d) return new Vector2d(this.x - v.x, this.y - v.y);
     return new Vector2d(this.x - v, this.y - v)
   }
+
   multiply(v) {
     if (v instanceof Vector2d) return new Vector2d(this.x * v.x, this.y * v.y);
     return new Vector2d(this.x * v, this.y * v)

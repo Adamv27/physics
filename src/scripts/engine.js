@@ -4,6 +4,7 @@ export class Engine {
     this.canvas.width = 500
     this.canvas.height = 500
     this.ctx = this.canvas.getContext("2d");
+    this.canvasColor = "#FFFFFF"
   }
 
   update(seconds_passed) {
@@ -13,7 +14,7 @@ export class Engine {
   }
 
   clearCanvas() {
-    this.ctx.fillStyle = "#FFFFFF"
+    this.ctx.fillStyle = this.canvasColor; 
     this.ctx.fillRect(0, 0, 500, 500);
   }
 }
