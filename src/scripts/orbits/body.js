@@ -7,7 +7,7 @@ export default class Body {
     this.radius = radius;
     this.x = x; 
     this.y = y;
-    this.mass = 10000000;
+    this.mass = 10_000_000;
   
     this.color = color;
 

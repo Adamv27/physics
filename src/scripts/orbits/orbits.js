@@ -43,6 +43,12 @@ class GravitationEngine extends Engine {
 
     this.planet.setInitalVelocity(this.sun);
   }
+
+  adjustBodyMass(newMass) {
+    this.sun.mass = newMass * 1_000_000;
+    this.sun.radius = 10 * (Math.log(newMass) + 1);
+    this.planet.setInitalVelocity(this.sun);
+  }
 }
 
 
@@ -51,7 +57,12 @@ runEngine(engine);
 
 
 document.getElementById("orbital-radius").addEventListener("input", (event) => {
-  const newRadius = event.target.value;
-  engine.adjustOrbitalRadius(parseInt(newRadius))
+  const newRadius = parseInt(event.target.value);
+  engine.adjustOrbitalRadius(newRadius)
 });
+
+document.getElementById("body-mass").addEventListener("input", (event) => {
+  const newMass = parseInt(event.target.value);
+  engine.adjustBodyMass(newMass);
+})
 
